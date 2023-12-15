@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 import { ClientesComponent } from './paginas/clientes/clientes.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ClientesComponent } from './paginas/clientes/clientes.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

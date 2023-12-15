@@ -1,1 +1,18 @@
-<p>clientes works!</p>
+<div class="container">
+    <table class="table" *ngIf="customer">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let custo of customer">
+                <td>{{ custo.name }}</td>
+                <td>{{ custo.email }}</td>
+                <td>{{ custo.phone }}</td>
+              </tr>
+        </tbody>
+      </table>
+</div>
