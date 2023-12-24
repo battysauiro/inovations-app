@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
       link:'/login'
     },
     {
-      name: 'Suscripción',
+      name: 'Suscripciones',
       link:'/login'
     }
   ];
