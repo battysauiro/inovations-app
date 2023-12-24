@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {ArrayDataSource} from '@angular/cdk/collections';
 
-interface ExampleFlatNode {
+interface Node {
+  name: string;
+  link:string;
+  children?: Node[];
+}
+
+/** Flat node with expandable and level information */
+interface FlatNode {
   expandable: boolean;
   name: string;
+  link:string,
   level: number;
-  isExpanded?: boolean;
 }
 @Component({
   selector: 'app-dashboard',
@@ -16,61 +22,55 @@ interface ExampleFlatNode {
 })
 export class DashboardComponent implements OnInit {
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
+  
+  private _transformer = (node: Node, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      link: node.link,
+      level: level,
+    };
+  };
+  
+  TREE_DATA: Node[] = [
+    {
+      name: 'Clientes',
+      link: '/clientes'
+      // children: [{name: 'Agregar'}, {name: 'editar'}, {name: 'eliminar'}],
+    },
+    {
+      name: 'Planes',
+      link:'/login'
+    },
+    {
+      name: 'Suscripción',
+      link:'/login'
+    }
+  ];
+
+  treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
     node => node.expandable,
   );
 
-  TREE_DATA: ExampleFlatNode[] = [
-    {
-      name: 'clientes',
-      expandable: true,
-      level: 0,
-    },
-    {
-      name: 'lista Clientes',
-      expandable: false,
-      level: 1,
-    },
-    {
-      name: 'Agregar Cliente',
-      expandable: false,
-      level: 1,
-    },
-    
-  ];
+  
 
-  dataSource = new ArrayDataSource(this.TREE_DATA);
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  
   constructor() {
-    
+    this.dataSource.data = this.TREE_DATA;
    }
 
   ngOnInit(): void {
   }
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-
-  getParentNode(node: ExampleFlatNode) {
-    const nodeIndex = this.TREE_DATA.indexOf(node);
-
-    for (let i = nodeIndex - 1; i >= 0; i--) {
-      if (this.TREE_DATA[i].level === node.level - 1) {
-        return this.TREE_DATA[i];
-      }
-    }
-
-    return null;
-  }
-
-  shouldRender(node: ExampleFlatNode) {
-    let parent = this.getParentNode(node);
-    while (parent) {
-      if (!parent.isExpanded) {
-        return false;
-      }
-      parent = this.getParentNode(parent);
-    }
-    return true;
-  }
+  hasChild = (_: number, node: FlatNode) => node.expandable;
   
 }
