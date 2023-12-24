@@ -1,0 +1,42 @@
+<ng-container [ngSwitch]="data.tipo">
+    <ng-container *ngSwitchCase="'advertencia'">
+        <div class="text-center">
+            <mat-icon class="warning-icon">error</mat-icon>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'error'">
+        <div class="text-center">
+            <mat-icon class="failure-icon">cancel</mat-icon>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'exito'">
+        <div class="text-center">
+            <mat-icon class="success-icon">check_circle</mat-icon>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'descarga'">
+        <div class="text-center">
+            <mat-icon class="success-icon"><i class="fas fa-spinner fa-spin"></i></mat-icon>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'info'">
+        <div class="text-center">
+            <mat-icon class="help-icon">emoji_objects</mat-icon>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'pregunta'">
+        <div class="text-center">
+            <mat-icon class="question-icon">question_mark</mat-icon>
+        </div>
+    </ng-container>
+
+    <h1 mat-dialog-title class="text-center titulo">{{data.titulo}}</h1>
+    <div class="mensaje text-center" mat-dialog-content>
+        {{data.texto}}
+    </div>
+    <div mat-dialog-actions align="center">
+        <button *ngIf="!data.noMostrarCancelar" mat-button [mat-dialog-close]=false>Cancelar</button>
+        <button *ngIf="!data.noMostrarAceptar" mat-button [mat-dialog-close]=true cdkFocusInitial class="btn btn-primary">Aceptar</button>
+    </div>
+</ng-container>
+<!-- mat-dialog-close -->

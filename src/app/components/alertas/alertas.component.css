@@ -1,0 +1,132 @@
+.success-icon {
+    animation: success 1s ease 0s 1 normal forwards;
+    font-size: 5em;
+    width: 5rem;
+    height: auto;
+    color: #006400;
+    background-color: white;
+}
+
+.help-icon {
+    animation: success 1s ease 0s 1 normal forwards;
+    font-size: 5em;
+    width: 5rem;
+    height: auto;
+    color: #ced123;
+    background-color: white;
+}
+
+@keyframes success {
+    0% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(0.9);
+    }
+    40% {
+        transform: scale(1.1);
+    }
+    60% {
+        transform: scale(0.95);
+    }
+    80% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.warning-icon {
+    animation: warning 1s ease 0s 1 normal forwards;
+    font-size: 5em;
+    width: 5rem;
+    height: auto;
+    color: #b67c00d8;
+}
+
+@keyframes warning {
+    0%,
+    100% {
+        transform: translateX(0%);
+        transform-origin: 50% 50%;
+    }
+    15% {
+        transform: translateX(-30px) rotate(-6deg);
+    }
+    30% {
+        transform: translateX(15px) rotate(6deg);
+    }
+    45% {
+        transform: translateX(-15px) rotate(-3.6deg);
+    }
+    60% {
+        transform: translateX(9px) rotate(2.4deg);
+    }
+    75% {
+        transform: translateX(-6px) rotate(-1.2deg);
+    }
+}
+
+.failure-icon {
+    animation: failure 1s ease 0s 1 normal forwards;
+    font-size: 5em;
+    width: 5rem;
+    height: auto;
+    color: #b60600d8;
+}
+
+.question-icon {
+    animation: failure 1s ease 0s 1 normal forwards;
+    font-size: 5em;
+    width: 5rem;
+    height: auto;
+    color: #0e477c;
+}
+
+@keyframes failure {
+    0% {
+        animation-timing-function: ease-in;
+        opacity: 1;
+        transform: translateY(-45px);
+    }
+    24% {
+        opacity: 1;
+    }
+    40% {
+        animation-timing-function: ease-in;
+        transform: translateY(-24px);
+    }
+    65% {
+        animation-timing-function: ease-in;
+        transform: translateY(-12px);
+    }
+    82% {
+        animation-timing-function: ease-in;
+        transform: translateY(-6px);
+    }
+    93% {
+        animation-timing-function: ease-in;
+        transform: translateY(-4px);
+    }
+    25%,
+    55%,
+    75%,
+    87% {
+        animation-timing-function: ease-out;
+        transform: translateY(0px);
+    }
+    100% {
+        animation-timing-function: ease-out;
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.titulo {
+    font-size: 1.8rem !important;
+}
+
+.mensaje {
+    font-size: 1.2rem;
+}

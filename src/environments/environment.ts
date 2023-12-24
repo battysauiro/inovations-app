@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseUrlAuth:'http://localhost:8080/oauth/token',
   baseUrl:'http://localhost:8080'
 };
 

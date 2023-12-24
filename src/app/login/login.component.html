@@ -8,15 +8,15 @@
         <mat-card-content>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Usuario</span>
-                <input type="text" class="form-control" placeholder="Usuario" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Usuario" aria-label="Username" aria-describedby="basic-addon1" name = "usuario" [(ngModel)]="usuario.usuario">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Contraseña</span>
-                <input type="password" placeholder="Contraseña" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                <input type="password" placeholder="Contraseña" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name = "password" [(ngModel)]="usuario.password">
             </div>
         </mat-card-content>
         <mat-card-actions  class="ms-0 me-0">
-            <a href="/inicio" class="btn btn-primary w-100">INICIAR SESION</a>
+            <button (click)="loginUsuarios()" class="btn btn-primary w-100">INICIAR SESION</button>
         </mat-card-actions>
     </mat-card>
       

@@ -1,5 +1,15 @@
 
-<mat-sidenav-container *ngIf="true" class="h-100">
+<ng-container *ngIf="authService.isAuthenticated() else login">
+  <mat-toolbar color="primary" class="d-flex justify-content-end">
+  <button mat-button [matMenuTriggerFor]="afterMenu">{{authService.usuario.nombrePersona}}
+    <mat-icon class="text-white">account_circle</mat-icon>
+  </button>
+  <mat-menu #afterMenu="matMenu" xPosition="after">
+    <button mat-menu-item>Perfil</button>
+    <button mat-menu-item (click)="logout()">Cerrar sesion</button>
+  </mat-menu>
+  </mat-toolbar>
+  <mat-sidenav-container *ngIf="true" class="h-100">
     <mat-sidenav [opened]="isSidenavOpen" #sidenav mode="side">
       <app-dashboard></app-dashboard>
     </mat-sidenav>
@@ -13,3 +23,7 @@
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
+</ng-container>
+<ng-template #login>
+  <router-outlet></router-outlet>
+</ng-template>

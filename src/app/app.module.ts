@@ -9,13 +9,18 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 import { ClientesComponent } from './paginas/clientes/clientes.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertasComponent } from './components/alertas/alertas.component';
+import { FormsModule } from '@angular/forms';
+import { InicioComponent } from './paginas/inicio/inicio.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    ClientesComponent
+    ClientesComponent,
+    AlertasComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     AngularMaterialModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
