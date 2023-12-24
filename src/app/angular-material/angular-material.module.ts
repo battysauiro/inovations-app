@@ -5,6 +5,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
 import {CdkTreeModule} from '@angular/cdk/tree';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -16,7 +18,9 @@ import {CdkTreeModule} from '@angular/cdk/tree';
     MatButtonModule,
     MatTreeModule,
     MatIconModule,
-    CdkTreeModule
+    CdkTreeModule,
+    MatSidenavModule,
+    MatDividerModule
   ]
 })
 export class AngularMaterialModule { }
