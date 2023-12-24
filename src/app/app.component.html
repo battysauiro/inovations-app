@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+
+<mat-sidenav-container *ngIf="true" class="h-100">
+    <mat-sidenav [opened]="isSidenavOpen" #sidenav mode="side">
+      <app-dashboard></app-dashboard>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+        <button mat-icon-button color="accent"  (click)="toggleSidenav()" aria-label="Example icon button with a menu icon">
+            <mat-icon class="text-dark">{{ isSidenavOpen ? 'close' : 'menu' }}</mat-icon>
+        </button>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
