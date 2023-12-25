@@ -10,11 +10,12 @@ import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 import { ClientesComponent } from './paginas/clientes/clientes.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AlertasComponent } from './components/alertas/alertas.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InicioComponent } from './paginas/inicio/inicio.component';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './servicios/interceptors/token.interceptor';
 import { AuthInterceptor } from './servicios/interceptors/auth.interceptor';
+import { FormularioClientesComponent } from './paginas/clientes/formuario-clientes/formuario-clientes.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthInterceptor } from './servicios/interceptors/auth.interceptor';
     DashboardComponent,
     ClientesComponent,
     AlertasComponent,
-    InicioComponent
+    InicioComponent,
+    FormularioClientesComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { AuthInterceptor } from './servicios/interceptors/auth.interceptor';
     AngularMaterialModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
   ],
   providers: [
