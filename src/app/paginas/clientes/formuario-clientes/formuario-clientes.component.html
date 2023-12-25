@@ -1,3 +1,4 @@
+<h2 class="mb-3">{{titulo | uppercase}}</h2>
 <form [formGroup]="formCliente" (ngSubmit)="onSubmit()">
     <div class="row g-3 align-items-center mb-3">
         <div class="col-1">
@@ -32,5 +33,5 @@
             <span class="text-danger tamanio-texto-alerta d-flex align-items-center"><mat-icon>info</mat-icon> El Teléfono es obligatorio.</span>
         </div>
     </div>
-    <button mat-raised-button color="primary" type="submit" [disabled]="formCliente.invalid">Agregar Cliente</button>
+    <button *ngIf="this.banderaActualizar" mat-raised-button color="primary" type="submit" [disabled]="formCliente.invalid">{{titulo}}</button>
 </form>

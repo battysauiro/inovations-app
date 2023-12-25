@@ -7,6 +7,7 @@
             <th>Nombre</th>
             <th>Email</th>
             <th>Teléfono</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -14,6 +15,17 @@
                 <td>{{ cliente.name }}</td>
                 <td>{{ cliente.email }}</td>
                 <td>{{ cliente.phone }}</td>
+                <td>
+                  <button class="me-1" mat-mini-fab color="primary" aria-label="icon" [routerLink]="['/clientes/agregar',cliente.id,'ver']">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                  <button class="me-1" mat-mini-fab color="primary" aria-label="icon" [routerLink]="['/clientes/agregar',cliente.id,'editar']">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button class="me-1" mat-mini-fab color="primary" aria-label="icon">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
               </tr>
         </tbody>
 </table>

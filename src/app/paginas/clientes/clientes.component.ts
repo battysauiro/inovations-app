@@ -13,7 +13,10 @@ export class ClientesComponent implements OnInit {
   ngOnInit(): void {
     this.conektraServicio.listarClientesConektra().subscribe(
       {
-        next:response=>this.clientes=response.data,
+        next:response=>{
+          this.clientes=response.data;
+          console.log(this.clientes);
+        },
         error:error=> console.error(error)
       }
       

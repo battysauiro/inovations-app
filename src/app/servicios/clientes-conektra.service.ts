@@ -15,6 +15,10 @@ export class ClientesConektraService {
     return this.httpClient.get<any>(`${environment.baseUrl}/api/conektra-clientes/listar/miurl`);
   }
 
+  obtenerClienteConektra(idCliente:string):Observable<any>{ 
+    return this.httpClient.get<any>(`${environment.baseUrl}/api/conektra-clientes/obtener-cliente/${idCliente}`);
+  }
+
   agregarClienteConektra(cliente:Cliente):Observable<Cliente>{ 
     return this.httpClient.post<Cliente>(`${environment.baseUrl}/api/conektra-clientes`,cliente);
   }

@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'inicio', component: InicioComponent, data: { title: 'inicio'}, canActivate:[AuthGuard] },
   { path: 'clientes', component: ClientesComponent, data: { title: 'clientes'}, canActivate:[AuthGuard] },
   { path: 'clientes/agregar', component: FormularioClientesComponent, data: { title: 'agregar cliente'}, canActivate:[AuthGuard] },
+  { path: 'clientes/agregar/:id/:tipo', component: FormularioClientesComponent, data: { title: 'ver cliente'}, canActivate:[AuthGuard] },
 ];
 
 @NgModule({
