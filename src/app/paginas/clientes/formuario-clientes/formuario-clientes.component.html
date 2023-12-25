@@ -4,9 +4,9 @@
           <label for="inputNombre" class="col-form-label">Nombre:</label>
         </div>
         <div class="col-auto">
-          <input type="text" id="inputNombre" class="form-control" aria-describedby="nombreHelpInline"  formControlName="nombre">
+          <input type="text" id="inputNombre" class="form-control" aria-describedby="nombreHelpInline"  formControlName="name">
         </div>
-        <div *ngIf="formCliente.get('nombre')?.hasError('required') && formCliente.get('nombre')?.touched">
+        <div *ngIf="formCliente.get('name')?.hasError('required') && formCliente.get('name')?.touched">
             <span class="text-danger tamanio-texto-alerta d-flex align-items-center"><mat-icon>info</mat-icon> El nombre es obligatorio.</span>
         </div>
     </div>
@@ -26,9 +26,9 @@
           <label for="inputTelefono" class="col-form-label">Teléfono:</label>
         </div>
         <div class="col-auto">
-          <input type="text" id="inputTelefono" class="form-control" aria-describedby="TelefonoHelpInline" formControlName="telefono">
+          <input type="text" id="inputTelefono" class="form-control" aria-describedby="TelefonoHelpInline" formControlName="phone">
         </div>
-        <div *ngIf="formCliente.get('telefono')?.hasError('required') && formCliente.get('telefono')?.touched">
+        <div *ngIf="formCliente.get('phone')?.hasError('required') && formCliente.get('phone')?.touched">
             <span class="text-danger tamanio-texto-alerta d-flex align-items-center"><mat-icon>info</mat-icon> El Teléfono es obligatorio.</span>
         </div>
     </div>
