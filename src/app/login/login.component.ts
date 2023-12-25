@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
         },
         error:error =>{
           if (error.status === 400 || error.status === 401) {
-            console.log('Error de Login', 'Usuario o contraseña incorrectos!', 'error');
             this.dialog.open(AlertasComponent, {
               disableClose:true,
               data: {tipo:'error',titulo:'Oops...',

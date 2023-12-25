@@ -7,16 +7,16 @@ import { ClientesConektraService } from 'src/app/servicios/clientes-conektra.ser
   styleUrls: ['./clientes.component.css']
 })
 export class ClientesComponent implements OnInit {
-  customer:any;
+  clientes:any;
   constructor(public conektraServicio:ClientesConektraService) { }
 
   ngOnInit(): void {
-    console.log("entra");
     this.conektraServicio.listarClientesConektra().subscribe(
-      response=>{
-        this.customer=response.data;
-        console.log(response);
+      {
+        next:response=>this.clientes=response.data,
+        error:error=> console.error(error)
       }
+      
     );
   }
 

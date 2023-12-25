@@ -1,5 +1,7 @@
-<div class="container">
-    <table class="table" *ngIf="customer">
+<div class="d-flex justify-content-end">
+  <button mat-raised-button color="primary">Agregar Cliente <mat-icon>person_add</mat-icon></button>
+</div>
+<table class="table" *ngIf="clientes">
         <thead>
           <tr>
             <th>Nombre</th>
@@ -8,11 +10,11 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let custo of customer">
-                <td>{{ custo.name }}</td>
-                <td>{{ custo.email }}</td>
-                <td>{{ custo.phone }}</td>
+            <tr *ngFor="let cliente of clientes">
+                <td>{{ cliente.name }}</td>
+                <td>{{ cliente.email }}</td>
+                <td>{{ cliente.phone }}</td>
               </tr>
         </tbody>
-      </table>
-</div>
+</table>
+

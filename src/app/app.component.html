@@ -19,7 +19,9 @@
             <mat-icon class="text-dark">{{ isSidenavOpen ? 'close' : 'menu' }}</mat-icon>
         </button>
       <div>
-        <router-outlet></router-outlet>
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
