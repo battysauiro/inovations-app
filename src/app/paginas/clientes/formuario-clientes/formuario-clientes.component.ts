@@ -180,7 +180,7 @@ export class FormularioClientesComponent implements OnInit {
       if(result){
         this.router.navigate(['/clientes'])
       }
-    }); 
+    });
   }
 
 }
