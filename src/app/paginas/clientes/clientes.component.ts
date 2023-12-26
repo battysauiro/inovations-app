@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertasComponent } from 'src/app/components/alertas/alertas.component';
 import { ClientesConektraService } from 'src/app/servicios/clientes-conektra.service';
 
 @Component({
@@ -8,9 +10,15 @@ import { ClientesConektraService } from 'src/app/servicios/clientes-conektra.ser
 })
 export class ClientesComponent implements OnInit {
   clientes:any;
-  constructor(public conektraServicio:ClientesConektraService) { }
+  constructor(
+    private conektraServicio:ClientesConektraService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.obtenerListaClientes();
+  }
+
+  obtenerListaClientes(){
     this.conektraServicio.listarClientesConektra().subscribe(
       {
         next:response=>{
@@ -20,6 +28,36 @@ export class ClientesComponent implements OnInit {
       }
       
     );
+  }
+
+  eliminarCliente(idCliente:string){
+    const dialogRef = this.dialog.open(AlertasComponent, {
+      disableClose:true,
+      data: {tipo:'advertencia',titulo:'ATENCIÓN',
+      texto:'¿Está seguro de eliminar el cliente?'
+    }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.conektraServicio.eliminarClienteConektra(idCliente).subscribe(
+          {
+            next:response=>{
+              
+            },
+            error:error=>{
+              this.dialog.open(AlertasComponent, {
+                disableClose:true,
+                data: {tipo:'error',titulo:'Error',
+                texto:'Error al eliminar al cliente.',
+                noMostrarCancelar:true
+              }
+              });
+            },
+            complete:()=>this.obtenerListaClientes()
+          }
+        );
+      }
+    });
   }
 
 }

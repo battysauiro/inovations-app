@@ -22,7 +22,7 @@
                   <button class="me-1" mat-mini-fab color="primary" aria-label="icon" [routerLink]="['/clientes/agregar',cliente.id,'editar']">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button class="me-1" mat-mini-fab color="primary" aria-label="icon">
+                  <button class="me-1" mat-mini-fab color="primary" aria-label="icon" (click)="eliminarCliente(cliente.id)">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </td>

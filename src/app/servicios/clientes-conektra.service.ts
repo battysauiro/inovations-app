@@ -19,11 +19,16 @@ export class ClientesConektraService {
     return this.httpClient.get<any>(`${environment.baseUrl}/api/conektra-clientes/obtener-cliente/${idCliente}`);
   }
 
+  agregarClienteConektra(cliente:Cliente):Observable<Cliente>{ 
+    return this.httpClient.post<Cliente>(`${environment.baseUrl}/api/conektra-clientes`,cliente);
+  }
+
   editarClienteConektra(idCliente:string,cliente:Cliente):Observable<Cliente>{ 
     return this.httpClient.put<Cliente>(`${environment.baseUrl}/api/conektra-clientes/editar-cliente/${idCliente}`,cliente);
   }
 
-  agregarClienteConektra(cliente:Cliente):Observable<Cliente>{ 
-    return this.httpClient.post<Cliente>(`${environment.baseUrl}/api/conektra-clientes`,cliente);
+  eliminarClienteConektra(idCliente:string):Observable<Cliente>{ 
+    return this.httpClient.delete<Cliente>(`${environment.baseUrl}/api/conektra-clientes/eliminar-cliente/${idCliente}`);
   }
+
 }
