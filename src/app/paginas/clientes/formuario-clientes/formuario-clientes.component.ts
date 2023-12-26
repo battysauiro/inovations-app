@@ -15,7 +15,8 @@ export class FormularioClientesComponent implements OnInit {
   
   formCliente: FormGroup;
   cliente:Cliente;
-  banderaActualizar:boolean=true;
+  banderaActualizar:boolean=false;
+  banderaVer:boolean=false;
   titulo:string='Agregar Cliente'
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +25,7 @@ export class FormularioClientesComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute
   ) { 
-    this.generarForm();
+    this.generarForm(false);
   }
 
   ngOnInit(): void {
@@ -34,26 +35,25 @@ export class FormularioClientesComponent implements OnInit {
       const tipo = params['tipo'];
       if(idCliente && tipo){
         if(tipo=='ver'){
-          this.banderaActualizar=false;
+          this.banderaVer=true;
           this.titulo='Cliente solo lectura';
-          this.generarForm();
-        }else{
+          this.generarForm(true);
+        }
+        if(tipo=='editar'){
           this.banderaActualizar=true;
           this.titulo='Actualizar Cliente'
-          this.generarForm();
+          this.generarForm(false);
         }
         this.obtenerCliente(idCliente);
-      }
-  
-      
+      }   
     });
   }
 
-  generarForm(){
+  generarForm(desactivarInputs){
     this.formCliente = this.formBuilder.group({
-      name:  [{value:'',disabled: !this.banderaActualizar}, Validators.required],
-      email: [{value:'',disabled: !this.banderaActualizar}, Validators.required],
-      phone: [{value:'',disabled: !this.banderaActualizar}, Validators.required]
+      name:  [{value:'',disabled: desactivarInputs}, Validators.required],
+      email: [{value:'',disabled: desactivarInputs}, Validators.required],
+      phone: [{value:'',disabled: desactivarInputs}, Validators.required]
     });
   }
 
@@ -68,23 +68,27 @@ export class FormularioClientesComponent implements OnInit {
             phone:this.cliente.phone
           });
         },
-        error: error=> console.error(error)
+        error: error=> {
+          this.dialog.open(AlertasComponent, {
+            disableClose:true,
+            data: {tipo:'error',titulo:'Errór',
+            texto:'Error al obtener al Cliente',
+            noMostrarCancelar:true
+          }
+          });
+        }
       }
     );
   }
 
-  onSubmit() {
-    // Lógica para manejar el envío del formulario
-    console.log('Formulario enviado', this.formCliente.value);
-    this.cliente=this.formCliente.value;
-    console.log('cliente ', this.cliente);
-    this.clientesConektraServicio.agregarClienteConektra(this.cliente).subscribe(
+  agregarCliente(cliente:Cliente){
+    this.clientesConektraServicio.agregarClienteConektra(cliente).subscribe(
       {
         error:error=> {
           this.dialog.open(AlertasComponent, {
             disableClose:true,
             data: {tipo:'error',titulo:'Errór',
-            texto:'Errór al agregar al Cliente',
+            texto:'Error al agregar al Cliente',
             noMostrarCancelar:true
           }
           });
@@ -97,9 +101,86 @@ export class FormularioClientesComponent implements OnInit {
             noMostrarCancelar:true
           }
           });
-          this.router.navigate(['/clientes'])}
+          this.router.navigate(['/clientes'])
+        }
       }
     );
+  }
+  editarCliente(idCliente:string,cliente:Cliente){
+    this.clientesConektraServicio.editarClienteConektra(idCliente,cliente).subscribe(
+      {
+        next:response=>{
+          this.cliente =response;
+          this.formCliente.patchValue({
+            name: this.cliente.name,
+            email:this.cliente.email,
+            phone:this.cliente.phone
+          });
+        },
+        error: error=> {
+          this.dialog.open(AlertasComponent, {
+            disableClose:true,
+            data: {tipo:'error',titulo:'Error',
+            texto:'Error al actualizar al cliente.',
+            noMostrarCancelar:true
+          }
+          });
+        },
+        complete: ()=> {
+          const dialogRef = this.dialog.open(AlertasComponent, {
+            disableClose:true,
+            data: {tipo:'exito',titulo:'Exitó',
+            texto:'El cliente se ha actualizado correctamente.',
+            noMostrarCancelar:true
+          }
+          });
+          this.router.navigate(['/clientes']);
+        }
+      }
+    );
+  }
+
+  onSubmit() {
+    let cliente:Cliente=this.formCliente.value;
+    if(!this.banderaActualizar){
+      const dialogRef = this.dialog.open(AlertasComponent, {
+        disableClose:true,
+        data: {tipo:'advertencia',titulo:'ATENCIÓN',
+        texto:'¿Está seguro de agregar a este cliente?'
+      }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.agregarCliente(cliente);
+        }
+      });  
+    }else{
+      const dialogRef = this.dialog.open(AlertasComponent, {
+        disableClose:true,
+        data: {tipo:'advertencia',titulo:'ATENCIÓN',
+        texto:'¿Está seguro de actualizar a este cliente?'
+      }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.editarCliente(this.cliente.id,cliente);
+        }
+      }); 
+    }
+  }
+
+  cancelar(){
+    const dialogRef = this.dialog.open(AlertasComponent, {
+      disableClose:true,
+      data: {tipo:'advertencia',titulo:'ATENCIÓN',
+      texto:'¿Está seguro de cancelar el registro?'
+    }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.router.navigate(['/clientes'])
+      }
+    }); 
   }
 
 }

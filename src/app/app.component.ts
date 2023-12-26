@@ -21,7 +21,6 @@ export class AppComponent {
   ){}
   
   toggleSidenav() {
-    console.log(this.sidenav);
     this.sidenav.toggle();
     this.isSidenavOpen = this.sidenav.opened;
   }

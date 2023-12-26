@@ -15,7 +15,6 @@ export class ClientesComponent implements OnInit {
       {
         next:response=>{
           this.clientes=response.data;
-          console.log(this.clientes);
         },
         error:error=> console.error(error)
       }

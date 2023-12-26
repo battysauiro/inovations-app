@@ -33,5 +33,8 @@
             <span class="text-danger tamanio-texto-alerta d-flex align-items-center"><mat-icon>info</mat-icon> El Teléfono es obligatorio.</span>
         </div>
     </div>
-    <button *ngIf="this.banderaActualizar" mat-raised-button color="primary" type="submit" [disabled]="formCliente.invalid">{{titulo}}</button>
+    <div *ngIf="!banderaVer" class="d-grid gap-2 d-md-block">
+      <button class="me-1" mat-raised-button color="primary" type="submit" [disabled]="formCliente.invalid">{{!this.banderaActualizar?'Agregar Cliente':'Editar Cliente'}}</button>
+      <button mat-raised-button color="primary" type="button" (click)="cancelar()" >Cancelar</button>
+    </div>
 </form>
