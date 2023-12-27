@@ -16,6 +16,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './servicios/interceptors/token.interceptor';
 import { AuthInterceptor } from './servicios/interceptors/auth.interceptor';
 import { FormularioClientesComponent } from './paginas/clientes/formuario-clientes/formuario-clientes.component';
+import { PlanesComponent } from './paginas/planes/planes.component';
+import { FormularioPlanesComponent } from './paginas/planes/formulario-planes/formulario-planes.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FormularioClientesComponent } from './paginas/clientes/formuario-client
     ClientesComponent,
     AlertasComponent,
     InicioComponent,
-    FormularioClientesComponent
+    FormularioClientesComponent,
+    PlanesComponent,
+    FormularioPlanesComponent
   ],
   imports: [
     BrowserModule,

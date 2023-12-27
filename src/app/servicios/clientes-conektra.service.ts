@@ -9,7 +9,7 @@ import { Cliente } from '../modelo/clientes/cliente';
 })
 export class ClientesConektraService {
 
-  constructor(public httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient) { }
 
   listarClientesConektra():Observable<any>{ 
     return this.httpClient.get<any>(`${environment.baseUrl}/api/conektra-clientes/listar/miurl`);

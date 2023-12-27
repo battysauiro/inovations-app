@@ -6,6 +6,8 @@ import { ClientesComponent } from './paginas/clientes/clientes.component';
 import { InicioComponent } from './paginas/inicio/inicio.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { FormularioClientesComponent } from './paginas/clientes/formuario-clientes/formuario-clientes.component';
+import { PlanesComponent } from './paginas/planes/planes.component';
+import { FormularioPlanesComponent } from './paginas/planes/formulario-planes/formulario-planes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,6 +16,9 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent, data: { title: 'clientes'}, canActivate:[AuthGuard] },
   { path: 'clientes/agregar', component: FormularioClientesComponent, data: { title: 'agregar cliente'}, canActivate:[AuthGuard] },
   { path: 'clientes/agregar/:id/:tipo', component: FormularioClientesComponent, data: { title: 'ver cliente'}, canActivate:[AuthGuard] },
+  { path: 'planes', component: PlanesComponent, data: { title: 'planes'}, canActivate:[AuthGuard] },
+  { path: 'planes/agregar', component: FormularioPlanesComponent, data: { title: 'agregar plan'}, canActivate:[AuthGuard] },
+  { path: 'planes/agregar/:id/:tipo', component: FormularioPlanesComponent, data: { title: 'ver plan'}, canActivate:[AuthGuard] },
 ];
 
 @NgModule({

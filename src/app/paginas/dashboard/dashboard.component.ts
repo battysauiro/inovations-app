@@ -40,11 +40,11 @@ export class DashboardComponent implements OnInit {
     },
     {
       name: 'Planes',
-      link:'/login'
+      link:'/planes'
     },
     {
       name: 'Suscripciones',
-      link:'/login'
+      link:'/suscripciones'
     }
   ];
 
