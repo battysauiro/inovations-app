@@ -87,7 +87,7 @@ export class FormularioClientesComponent implements OnInit {
         error:error=> {
           this.dialog.open(AlertasComponent, {
             disableClose:true,
-            data: {tipo:'error',titulo:'Errór',
+            data: {tipo:'error',titulo:'Error',
             texto:'Error al agregar al Cliente',
             noMostrarCancelar:true
           }

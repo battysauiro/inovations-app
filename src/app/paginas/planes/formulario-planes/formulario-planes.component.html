@@ -1,1 +1,60 @@
-<p>formulario-planes works!</p>
+<h2 class="mb-3">{{titulo | uppercase}}</h2>
+<form [formGroup]="formPlan" (ngSubmit)="onSubmit()">
+    <div class="row g-3 align-items-center mb-3">
+        <div class="col-1">
+          <label for="inputNombre" class="col-form-label">Nombre:</label>
+        </div>
+        <div class="col-auto">
+          <input type="text" id="inputNombre" class="form-control" aria-describedby="nombreHelpInline"  formControlName="name">
+        </div>
+        <div *ngIf="formPlan.get('name')?.hasError('required') && formPlan.get('name')?.touched">
+            <span class="text-danger tamanio-texto-alerta d-flex align-items-center"><mat-icon>info</mat-icon> El nombre es obligatorio.</span>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-3">
+        <div class="col-1">
+          <label for="inputAmount" class="col-form-label">Cantidad:</label>
+        </div>
+        <div class="col-auto">
+          <input type="number" id="inputAmount" class="form-control" aria-describedby="AmountHelpInline" formControlName="amount">
+        </div>
+        <div class="col-1">
+            <label for="inputAmount" class="col-form-label">Divisa:</label>
+        </div>
+        <div class="col-2">
+            <select class="form-select" aria-label="select divisa" formControlName="currency">
+                <option selected value="MXN">MXN</option>
+                <option value="USD">USD</option>
+              </select>
+        </div>
+        <div *ngIf="formPlan.get('amount')?.hasError('required') && formPlan.get('amount')?.touched">
+            <span class="text-danger tamanio-texto-alerta d-flex align-items-center"><mat-icon>info</mat-icon> La cantidad es obligatoria.</span>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-3">
+        <div class="col-1">
+          <label for="inputFrecuencia" class="col-form-label">Frecuencia:</label>
+        </div>
+        <div class="col-auto">
+          <input type="number" id="inputFrecuencia" class="form-control" aria-describedby="FrecuenciaoHelpInline" formControlName="frequency">
+        </div>
+        <div class="col-1">
+            <label for="inputAmount" class="col-form-label">Intervalo:</label>
+        </div>
+        <div class="col-2">
+            <select class="form-select" aria-label="select divisa" formControlName="interval">
+                <option selected value="week">Semana</option>
+                <option value="half_month">Medio mes</option>
+                <option value="month">Mes</option>
+                <option value="year">Año</option>
+              </select>
+        </div>
+        <div *ngIf="formPlan.get('frequency')?.hasError('required') && formPlan.get('frequency')?.touched">
+            <span class="text-danger tamanio-texto-alerta d-flex align-items-center"><mat-icon>info</mat-icon> El intervalo es obligatorio.</span>
+        </div>
+    </div>
+    <div *ngIf="!banderaVer" class="d-grid gap-2 d-md-block">
+      <button class="me-1" mat-raised-button color="primary" type="submit" [disabled]="formPlan.invalid">{{!this.banderaActualizar?'Agregar Plan':'Editar Plan'}}</button>
+      <button mat-raised-button color="primary" type="button" (click)="cancelar()" >Cancelar</button>
+    </div>
+</form>
