@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AlertasComponent } from 'src/app/components/alertas/alertas.component';
 import { PlanesConektraService } from 'src/app/servicios/planes-conektra.service';
 
 export interface planData {
@@ -23,7 +25,9 @@ export class PlanesComponent implements AfterViewInit {
   nombreColumnas: string[] = ['name','created_at','amount','interval','acciones'];
   dataSource: MatTableDataSource<planData>;
   planes:any;
-  constructor(private planesConektraServicio:PlanesConektraService) { 
+  constructor(
+    private planesConektraServicio:PlanesConektraService,
+    private dialog: MatDialog) { 
     this.obtenerListaPlanes();
   }
 
@@ -36,8 +40,6 @@ export class PlanesComponent implements AfterViewInit {
       {
         next:response=>{
           this.planes=response.data;
-          console.log(response.data);
-          
         },
         error:error=> console.error(error),
         complete:()=>{
@@ -51,7 +53,39 @@ export class PlanesComponent implements AfterViewInit {
   }
 
   eliminarPlan(idPlan:string){
-
+    const dialogRef = this.dialog.open(AlertasComponent, {
+      disableClose:true,
+      data: {tipo:'advertencia',titulo:'ATENCIÓN',
+      texto:'¿Está seguro de eliminar el Plan?'
+    }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.planesConektraServicio.eliminarPlanConektra(idPlan).subscribe(
+          {
+            next:response=>{
+              this.dialog.open(AlertasComponent, {
+                disableClose:true,
+                data: {tipo:'exito',titulo:'Exitó',
+                texto:'El Plan se ha eliminado correctamente.',
+                noMostrarCancelar:true
+              }
+              });
+            },
+            error:error=>{
+              this.dialog.open(AlertasComponent, {
+                disableClose:true,
+                data: {tipo:'error',titulo:'Error',
+                texto:'Error al eliminar el Plan.',
+                noMostrarCancelar:true
+              }
+              });
+            },
+            complete:()=>this.obtenerListaPlanes()
+          }
+        );
+      }
+    });
   }
 
   applyFilter(event: Event) {

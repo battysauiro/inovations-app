@@ -30,6 +30,25 @@ export class FormularioPlanesComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    this.plan= new Plan();
+    this.route.params.subscribe(params => {
+      const idPlan = params['id'];
+      const tipo = params['tipo'];
+      if(idPlan && tipo){
+        if(tipo=='ver'){
+          this.banderaVer=true;
+          this.titulo='Plan solo lectura';
+          this.generarForm(true);
+        }
+        if(tipo=='editar'){
+          this.banderaActualizar=true;
+          this.titulo='Actualizar Plan'
+          this.generarForm(false);
+        }
+        this.obtenerPlan(idPlan);
+      }   
+    });
   }
 
   generarForm(desactivarInputs){
@@ -40,10 +59,42 @@ export class FormularioPlanesComponent implements OnInit {
       currency: [{value:'MXN',disabled: desactivarInputs}],
       interval: [{value:'week',disabled: desactivarInputs}]
     });
+
+    if(this.banderaActualizar){
+      this.formPlan.get('interval').disable();
+      this.formPlan.get('frequency').disable();
+    }
+  }
+
+  obtenerPlan(idPlan){
+    this.planesConektraServicio.obtenerPlanConektra(idPlan).subscribe(
+      {
+        next:response=>{
+          this.plan =response;
+          this.formPlan.patchValue({
+            name: this.plan.name,
+            amount:this.plan.amount,
+            frequency:this.plan.frequency,
+            currency:this.plan.currency,
+            interval:this.plan.interval
+          });
+        },
+        error: error=> {
+          this.dialog.open(AlertasComponent, {
+            disableClose:true,
+            data: {tipo:'error',titulo:'Errór',
+            texto:'Error al obtener al Cliente',
+            noMostrarCancelar:true
+          }
+          });
+        }
+      }
+    );
   }
 
   onSubmit() {
     let plan:Plan=this.formPlan.value;
+    plan.id=this.plan.id;
     if(!this.banderaActualizar){
       const dialogRef = this.dialog.open(AlertasComponent, {
         disableClose:true,
@@ -65,7 +116,7 @@ export class FormularioPlanesComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if(result){
-          //this.editarCliente(this.cliente.id,cliente);
+          this.editarPlan(plan);
         }
       }); 
     }
@@ -97,8 +148,52 @@ export class FormularioPlanesComponent implements OnInit {
     );
   }
 
-  cancelar(){
+  editarPlan(plan:Plan){
+    this.planesConektraServicio.editarPlanConektra(plan).subscribe(
+      {
+        next:response=>{
+          this.plan =response;
+          // this.formCliente.patchValue({
+          //   name: this.cliente.name,
+          //   email:this.cliente.email,
+          //   phone:this.cliente.phone
+          // });
+        },
+        error: error=> {
+          this.dialog.open(AlertasComponent, {
+            disableClose:true,
+            data: {tipo:'error',titulo:'Error',
+            texto:'Error al actualizar el Plan.',
+            noMostrarCancelar:true
+          }
+          });
+        },
+        complete: ()=> {
+          const dialogRef = this.dialog.open(AlertasComponent, {
+            disableClose:true,
+            data: {tipo:'exito',titulo:'Exitó',
+            texto:'El Plan se ha actualizado correctamente.',
+            noMostrarCancelar:true
+          }
+          });
+          this.router.navigate(['/planes']);
+        }
+      }
+    );
+  }
 
+  cancelar(){
+    const dialogRef = this.dialog.open(AlertasComponent, {
+      disableClose:true,
+      data: {tipo:'advertencia',titulo:'ATENCIÓN',
+      texto:'¿Está seguro de cancelar el registro?'
+    }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.router.navigate(['/planes'])
+      }
+    });
   }
 
 }

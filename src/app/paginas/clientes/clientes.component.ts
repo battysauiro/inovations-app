@@ -42,7 +42,13 @@ export class ClientesComponent implements OnInit {
         this.conektraServicio.eliminarClienteConektra(idCliente).subscribe(
           {
             next:response=>{
-              
+              this.dialog.open(AlertasComponent, {
+                disableClose:true,
+                data: {tipo:'exito',titulo:'Exitó',
+                texto:'El Cliente se ha eliminado correctamente.',
+                noMostrarCancelar:true
+              }
+              });
             },
             error:error=>{
               this.dialog.open(AlertasComponent, {
