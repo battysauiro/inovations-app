@@ -153,11 +153,6 @@ export class FormularioPlanesComponent implements OnInit {
       {
         next:response=>{
           this.plan =response;
-          // this.formCliente.patchValue({
-          //   name: this.cliente.name,
-          //   email:this.cliente.email,
-          //   phone:this.cliente.phone
-          // });
         },
         error: error=> {
           this.dialog.open(AlertasComponent, {
