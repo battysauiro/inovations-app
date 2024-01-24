@@ -54,6 +54,7 @@ export class AuthService {
     this._usuario.idUsuario=payLoad.idUsuario;
     this._usuario.usuario=payLoad.nombreUsuario;
     this._usuario.nombrePersona=payLoad.nombrePersona;
+    this._usuario.tokenConektra=payLoad.tokenConektra;
     this._usuario.roles=payLoad.authorities;
     sessionStorage.setItem('usuario',JSON.stringify(this._usuario));
 

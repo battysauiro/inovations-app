@@ -3,5 +3,6 @@ export class Usuario {
     usuario: string;
     password: string;
     nombrePersona:string;
+    tokenConektra:string;
     roles:string[]=[];
 }
