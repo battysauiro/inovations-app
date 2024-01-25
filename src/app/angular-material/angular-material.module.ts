@@ -15,6 +15,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -36,7 +38,9 @@ import {MatSortModule} from '@angular/material/sort';
     MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
-    MatSortModule
+    MatSortModule,
+    MatCheckboxModule,
+    MatSelectModule
   ]
 })
 export class AngularMaterialModule { }

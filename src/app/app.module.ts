@@ -18,6 +18,7 @@ import { AuthInterceptor } from './servicios/interceptors/auth.interceptor';
 import { FormularioClientesComponent } from './paginas/clientes/formuario-clientes/formuario-clientes.component';
 import { PlanesComponent } from './paginas/planes/planes.component';
 import { FormularioPlanesComponent } from './paginas/planes/formulario-planes/formulario-planes.component';
+import { DialogSubscribirComponent } from './paginas/dialog-subscribir/dialog-subscribir.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { FormularioPlanesComponent } from './paginas/planes/formulario-planes/fo
     InicioComponent,
     FormularioClientesComponent,
     PlanesComponent,
-    FormularioPlanesComponent
+    FormularioPlanesComponent,
+    DialogSubscribirComponent
   ],
   imports: [
     BrowserModule,

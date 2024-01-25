@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -5,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertasComponent } from 'src/app/components/alertas/alertas.component';
 import { ClientesConektraService } from 'src/app/servicios/clientes-conektra.service';
+import { DialogSubscribirComponent } from '../dialog-subscribir/dialog-subscribir.component';
 
 export interface clienteData {
   name:string,
@@ -19,9 +21,11 @@ export interface clienteData {
 export class ClientesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  nombreColumnas: string[] = ['name','email','phone','acciones'];
+  nombreColumnas: string[] = ['select','name','email','phone','acciones'];
   clientes:any;
   dataSource: MatTableDataSource<clienteData>;
+  selection = new SelectionModel<clienteData>(true, []);
+  seleccionados:boolean;
   constructor(
     private conektraServicio:ClientesConektraService,
     private dialog: MatDialog) { }
@@ -37,6 +41,44 @@ export class ClientesComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  isAllSelected() {
+    console.log("sasaaasasas");
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  toggleAllRows() {
+    console.log("sasaaasasas");
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  checkboxLabel(row?: clienteData): string {
+    console.log("sasaaasasas");
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
+  }
+
+  anadirPlan(){
+    const seleccionados=this.selection.selected
+    const dialogRef = this.dialog.open(DialogSubscribirComponent,{
+      data:{
+        clientesSeleccionados:seleccionados
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   obtenerListaClientes(){
