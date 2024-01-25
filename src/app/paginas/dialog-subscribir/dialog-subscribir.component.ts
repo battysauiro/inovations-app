@@ -71,7 +71,6 @@ export class DialogSubscribirComponent implements OnInit, AfterViewInit {
     if (indiceAEliminar !== -1) {
       let clienteAux = this.dataSourceDialog.data;
       clienteAux.splice(indiceAEliminar, 1);
-      console.log(clienteAux)
       this.dataSourceDialog.data=clienteAux;
 
     }
